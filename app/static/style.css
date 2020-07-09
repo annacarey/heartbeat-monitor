@@ -1,0 +1,65 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0px;
+    color: #2b3a67;
+}
+
+html {
+    height: 100vh;
+}
+
+input {
+    color: #2b3a67;
+}
+
+input[type=text] {
+    height: 30px;
+    padding: 0 5px 0 5px;
+}
+
+input[type=submit] {
+    background-color: #2b3a67;
+    border-radius: 10px;
+    border-style: none;
+    cursor: pointer;
+    color: white;
+    padding: 8px 15px 8px 15px;
+    width: 100px;
+}
+
+h1 {
+    color: #E84855;
+    padding: 1px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    margin: 20px 0 0 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#welcome-message {
+    height: 50px;
+    width: 100vw;
+    position: absolute;
+}
+
+#welcome-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#welcome-div {
+    height: 100vh;
+}
+
+#welcome-buttons {
+    margin-top: 10px;
+}
+
+
+/* Cooloors color pallette: https://coolors.co/fffd82-ff9b71-e84855-b56b45-2b3a67 */
