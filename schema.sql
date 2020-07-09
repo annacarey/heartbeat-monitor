@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS sensors;
 DROP TABLE IF EXISTS heartbeats;
 
 CREATE TABLE users (
@@ -8,11 +9,19 @@ CREATE TABLE users (
     last_name TEXT NOT NULL
 );
 
+CREATE TABLE sensors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name TEXT NOT NULL,
+    active BOOLEAN
+);
+
 CREATE TABLE heartbeats (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     heartbeat INTEGER,
     user_id INTEGER,
-    FOREIGN KEY(user_id) REFERENCES users(id)
+    sensor_id INTEGER,
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(sensor_id) REFERENCES sensors(id)
 );
-
