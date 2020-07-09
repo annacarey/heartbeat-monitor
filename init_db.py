@@ -21,5 +21,9 @@ cur.execute("INSERT INTO sensors (name, active) VALUES (?, ?)",
             ('pulse_sensor', False)
             )
 
+cur.execute("INSERT INTO heartbeat_readings (bpm, user_id, sensor_id) VALUES (?, ?, ?)",
+            (70, 1, 1)
+            )
+
 connection.commit()
 connection.close()

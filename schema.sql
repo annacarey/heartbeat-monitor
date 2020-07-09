@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS sensors;
-DROP TABLE IF EXISTS heartbeats;
+DROP TABLE IF EXISTS heartbeat_readings;
 
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,10 +16,10 @@ CREATE TABLE sensors (
     active BOOLEAN
 );
 
-CREATE TABLE heartbeats (
+CREATE TABLE heartbeat_readings (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    heartbeat INTEGER,
+    bpm INTEGER,
     user_id INTEGER,
     sensor_id INTEGER,
     FOREIGN KEY(user_id) REFERENCES users(id),

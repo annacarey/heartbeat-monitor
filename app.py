@@ -17,8 +17,9 @@ def test_db():      # Testing the database
     conn = get_db_connection()
     users = conn.execute('SELECT * FROM users').fetchall()
     sensors = conn.execute('SELECT * FROM sensors').fetchall()
+    heartbeat_readings = conn.execute('SELECT * FROM heartbeat_readings').fetchall()
     conn.close()
-    print(sensors[0]['active'])
+    print(heartbeat_readings[0]["user"])
     return 'hi'
 
 if __name__ == "__main__":        # on running python app.py
