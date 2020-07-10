@@ -29,20 +29,29 @@ def get_user_heartrates(user_id):
     conn = get_db_connection()
     heartrates = conn.execute('SELECT * FROM heartbeat_readings WHERE user_id = ?',
                         (user_id,)).fetchall()
+    for heartrate in heartrates:
+        print(heartrate['bpm'])
     conn.close()
     return heartrates
 
 # Endpoint "/"
 @app.route("/", methods=('GET', 'POST'))
 def welcome():
+    conn = get_db_connection()
+    heartbeat_readings = conn.execute('SELECT * FROM heartbeat_readings').fetchall()
+    for heartbeat in heartbeat_readings:
+        print(heartbeat['bpm'])
     return render_template('home.html')
+    
 
 # Endpoint "/heartrate" to get information from the sensor
 @app.route("/heartrate", methods=('GET', 'POST'))
 def heartrate():
     if request.method == 'POST':
+
         # Parse the incoming json
         data = request.get_json()
+        bpm = data.get('bpm')
         sensor_name = data.get('sensor_name')
         user_id = data.get('user_id')
 
@@ -50,7 +59,17 @@ def heartrate():
         conn = get_db_connection()
         sensor_id = conn.execute('SELECT * FROM sensors WHERE name = ?',
                         (sensor_name,)).fetchone()["id"]
-        print("sensor id", sensor_id)
+
+        # Add a reading into the system
+        cur = conn.cursor()
+        cur.execute("INSERT INTO heartbeat_readings (bpm, user_id, sensor_id) VALUES (?, ?, ?)",
+            (bpm, user_id, sensor_id)
+            )
+        conn.commit()
+        heartbeat_readings = conn.execute('SELECT * FROM heartbeat_readings').fetchall()
+        for heartbeat in heartbeat_readings:
+            print(heartbeat['bpm'])
+        conn.close()
     return render_template('home.html')
 
 # Endpoint "/:user_id" to show dashboard
