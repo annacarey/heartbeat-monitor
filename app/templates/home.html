@@ -4,10 +4,12 @@
     <h1>Heartbeat Monitor</h1>
 </div>
 <div id="welcome-div" class="container">
-    <form id="welcome-form">
+    <form method="post" id="welcome-form">
         <div>
-            <input type="text" placeholder="first name..." />
-            <input type="text" placeholder="last name..." />
+            <input type="text" placeholder="first name..."
+            value="{{ request.form['first_name'] }}" />
+            <input type="text" placeholder="last name..."
+            value="{{ request.form['last_name'] }}" />
         </div>
         <div id="welcome-buttons">
             <input type="submit" value="Login"/>

@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div id="login" class="container">
-        <h1>Welcome, {Name}</h1>
-        {% for user in users %}
-            <h2>{{ user['first_name'] }}</h2>
+    <div id= "dashboard">
+        <h2>Welcome, {{ user['first_name'] }}!</h2>
+        <h3>Current Heartrate:</h3>
+        <h3>Heartrates History: </h3>
+        <table>
+            <tr>
+              <th>Date</th>
+              <th>BPM</th>
+            </tr>
+        {% for heartrate in heartrates %}
+            <tr>
+                <td>{{ heartrate['created'] }}</td>
+                <td>{{ heartrate['bpm'] }}</td>
+            </tr>
         {% endfor %}
     </div>
 {% endblock %}

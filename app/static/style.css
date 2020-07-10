@@ -61,5 +61,22 @@ h1 {
     margin-top: 10px;
 }
 
+#dashboard {
+    margin-left: 20px;
+}
+
+table {
+    text-align: left;
+}
+
+table, th, td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 15px;
+  }
+
 
 /* Cooloors color pallette: https://coolors.co/fffd82-ff9b71-e84855-b56b45-2b3a67 */

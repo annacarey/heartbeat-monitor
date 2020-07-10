@@ -1,6 +1,9 @@
-import sqlite3                              # import sqlite3
-from flask import Flask, render_template    # import flask and render_template
-from werkzeug.exceptions import abort       # import abort
+import sqlite3
+from flask import Flask, render_template, request, url_for, flash, redirect
+from werkzeug.exceptions import abort
+import requests
+# import serial
+# import time
 
 # Create an app instance
 app = Flask(__name__)
@@ -12,19 +15,42 @@ def get_db_connection():
     return conn
 
 # Get user
-def get_user(first_name, last_name):
+def get_user(user_id):
     conn = get_db_connection()
-    user = conn.execute('SELECT * FROM users WHERE first_name = ? AND last_name = ?',
-                        (first_name, last_name)).fetchone()
+    user = conn.execute('SELECT * FROM users WHERE id = ?',
+                        (user_id,)).fetchone()
     conn.close()
-    if post is None:
+    if user is None:
         abort(404)
-    return post
+    return user
+
+# Get user's heartrates
+def get_user_heartrates(user_id):
+    conn = get_db_connection()
+    heartrates = conn.execute('SELECT * FROM heartbeat_readings WHERE user_id = ?',
+                        (user_id,)).fetchall()
+    conn.close()
+    return heartrates
 
 # Endpoint "/"
-@app.route("/")
-def begin():
+@app.route("/", methods=('GET', 'POST'))
+def welcome():
     return render_template('home.html')
+
+# Endpoint "/heart"
+# @app.route("/heartrate", methods=('GET', 'POST'))
+# def heartrate():
+#     if request.method == 'POST':
+
+#     return render_template('home.html')
+
+# Endpoint for dashboard with user id
+
+@app.route('/<int:user_id>')
+def user(user_id):
+    user = get_user(user_id)
+    heartrates = get_user_heartrates(user_id)
+    return render_template('dashboard.html', user=user, heartrates=heartrates)
 
 @app.route("/test")
 def test_db():      # Testing the database
@@ -41,17 +67,7 @@ def test_db():      # Testing the database
     heartbeat_readings = conn.execute('SELECT * FROM heartbeat_readings').fetchall()
     
     conn.close()
-    print(heartbeat_readings[0]['user_id'])
     return 'testing database'
-
-# Endpoint "/dashboard"
-@app.route('/dashboard')
-def dashboard():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    users = conn.execute('SELECT * FROM users').fetchall()
-    conn.close()
-    return render_template('dashboard.html', users=users)
 
 
 # For __init__ file, wrap in create_app method
