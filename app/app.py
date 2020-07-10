@@ -37,23 +37,32 @@ def get_user_heartrates(user_id):
 def welcome():
     return render_template('home.html')
 
-# Endpoint "/heart"
-# @app.route("/heartrate", methods=('GET', 'POST'))
-# def heartrate():
-#     if request.method == 'POST':
+# Endpoint "/heartrate" to get information from the sensor
+@app.route("/heartrate", methods=('GET', 'POST'))
+def heartrate():
+    if request.method == 'POST':
+        # Parse the incoming json
+        data = request.get_json()
+        sensor_name = data.get('sensor_name')
+        user_id = data.get('user_id')
 
-#     return render_template('home.html')
+        # Get sensor id
+        conn = get_db_connection()
+        sensor_id = conn.execute('SELECT * FROM sensors WHERE name = ?',
+                        (sensor_name,)).fetchone()["id"]
+        print("sensor id", sensor_id)
+    return render_template('home.html')
 
-# Endpoint for dashboard with user id
-
+# Endpoint "/:user_id" to show dashboard
 @app.route('/<int:user_id>')
 def user(user_id):
     user = get_user(user_id)
     heartrates = get_user_heartrates(user_id)
     return render_template('dashboard.html', user=user, heartrates=heartrates)
 
+# Testing the database connection and schema
 @app.route("/test")
-def test_db():      # Testing the database
+def test_db():
 
     conn = get_db_connection()
 
