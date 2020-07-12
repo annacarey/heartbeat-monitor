@@ -1,23 +1,36 @@
 import React, { useState, useEffect } from 'react';
   
-function Dashboard() {
-
+function Dashboard(props) {
     // Update if using a new server
     const serverAddress = 'http://127.0.0.1:5000'
 
     // Declare state variables to store heartrate readings
     const [heartrateReadings, setHeartrateReadings] = useState([]);
+    const [firstName, setFirstName] = useState(['']);
+
+    // Fetch request to Flask API to get the current user's heartrate readings
+    const getUserHeartrate = () => {
+        fetch(`${serverAddress}/get_heartrate_readings/${parseInt(props.userid)}`).then(res => res.json()).then(data => {
+            setHeartrateReadings(data.heartrates)
+            setFirstName(data.user.first_name)
+          })
+    }
 
     useEffect(() => {
-        fetch(`${serverAddress}/get_heartrate_readings/2`).then(res => res.json()).then(data => {
-            console.log(data.heartrates)
-            setHeartrateReadings(data.heartrates)
-          });
+        // Get user's heartrate data on initial render
+        getUserHeartrate()
+
+        // On every five second interval, get the heartrate data and component rerenders
+        const interval = setInterval(() => {
+            getUserHeartrate()
+          }, 5000);
+          return () => clearInterval(interval);
+        
       }, []);
 
     return (
     <div id= "dashboard">
-        <h2>Welcome, Anna</h2>
+        <h2>Welcome, {firstName}</h2>
         <h3>Current Heartrate:</h3>
         <h3>Heartrates History: </h3>
         <table>

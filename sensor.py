@@ -11,7 +11,7 @@ sensor_name = sys.argv[1]
 user_id = 2
 
 # Set bpm to value from sensor (dummy data for now)
-bpm = 90
+bpm = 50
 
 # Add variables to a payload
 payload = {'bpm': bpm, 'sensor_name': sensor_name, 'user_id': user_id}

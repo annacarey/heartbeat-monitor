@@ -35,10 +35,11 @@ def get_user(user_id):
 @app.route('/get_heartrate_readings/<int:user_id>')
 def get_user_heartrates(user_id):
     conn = get_db_connection()
+    user = get_user(user_id)
     heartrates = conn.execute('SELECT * FROM heartbeat_readings WHERE user_id = ?',
                         (user_id,)).fetchall()
     conn.close()
-    return json.dumps({"heartrates": heartrates})   # Returns json object
+    return json.dumps({"heartrates": heartrates, "user": user})   # Returns json object
 
 # Endpoint "/"
 @app.route("/", methods=('GET', 'POST'))
@@ -75,7 +76,6 @@ def heartrate():
 def user(user_id):
     user = get_user(user_id)
     heartrates = get_user_heartrates(user_id)
-    print(heartrates)
     return render_template('dashboard.html', user=user, heartrates=heartrates)
 
 # Testing the database connection and schema

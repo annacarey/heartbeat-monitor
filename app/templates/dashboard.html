@@ -3,8 +3,10 @@
 
     {% block app_content %}
   
-<div id="react-root"></div>
-  
+<div 
+    id="root"
+    data-userId='{{ user.id }}'
+></div>
 <script src="{{ url_for('static', filename='dist/bundle.js') }}"></script>
 {% endblock %}
 {% endblock %}
