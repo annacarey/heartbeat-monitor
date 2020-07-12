@@ -1,7 +1,7 @@
 import sys
 import requests
 
-# Endpoint base. Change based on where server is running
+# Endpoint base. Change based on where your server is running
 server_address = 'http://127.0.0.1:5000/heartrate'
 
 # Set sensor name to command line argument

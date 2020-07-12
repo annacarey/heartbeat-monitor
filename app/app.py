@@ -41,7 +41,7 @@ def get_user_heartrates(user_id):
     conn.close()
     return json.dumps({"heartrates": heartrates, "user": user})   # Returns json object
 
-# Endpoint "/"
+# Endpoint "/" for homepage (currently a dummy page for login/signup - not yet implemented)
 @app.route("/", methods=('GET', 'POST'))
 def welcome():
     return render_template('home.html')
@@ -95,10 +95,3 @@ def test_db():
     
     conn.close()
     return 'Testing database'
-
-
-# For __init__ file, wrap in create_app method
-# def create_app(test_config=None): 
-# For testing, add config information
-# if test_config is not None: app.config.update(test_config)
-    
