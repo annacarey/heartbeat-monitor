@@ -1,19 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div id= "dashboard">
-        <h2>Welcome, {{ user['first_name'] }}!</h2>
-        <h3>Current Heartrate:</h3>
-        <h3>Heartrates History: </h3>
-        <table>
-            <tr>
-              <th>Date</th>
-              <th>BPM</th>
-            </tr>
-        {% for heartrate in heartrates %}
-            <tr>
-                <td>{{ heartrate['created'] }}</td>
-                <td>{{ heartrate['bpm'] }}</td>
-            </tr>
-        {% endfor %}
-    </div>
+
+    {% block app_content %}
+  
+<div id="react-root"></div>
+  
+<script src="{{ url_for('static', filename='dist/bundle.js') }}"></script>
 {% endblock %}
+{% endblock %}
+
