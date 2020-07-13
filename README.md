@@ -6,10 +6,11 @@ Build a web application that displays the latest "heartbeats" from a number of s
 ## Instructions
 1. Fork and clone the repository
 2. Cd into the app directory and run ```python init_db.py``` to initialize database and seed data
-4. If you need to make changes to anything in the React frontend, cd into static directory and run npm build to update the bundle.js file
-5. Cd .. and run python -m flask run to startup your application server
+4. If you need to make changes to anything in the React frontend, ```cd static``` and run ```npm run build``` to update the bundle.js file
+5. ```Cd ..``` and run ```python -m flask run``` to startup your application server
 6. Update the server endpoint in the Dashboard.js and sensor.py file according to what your server address is
-7. In another terminal window run python sensor.py sensor_name according to what sensor you want to use from your init_db.py file
+7. In another terminal window run ```python sensor.py sensor_name``` according to what sensor you want to use from your init_db.py file
+8. Go to ``'/<int:user_id>`` to view any users that are initialized in the ``init_db.py`` file
 
 ## Development Process
 
