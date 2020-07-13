@@ -1,17 +1,17 @@
-# Heartrate Monitoring App with "Sensor" Simulation
+# Heartrate Monitoring App with Sensor Simulation
 
 ## Goal
-Goal was to build a web application that displays the latest "heartbeats" from a number of sensors using Flask.
+Build a web application that displays the latest "heartbeats" from a number of sensors using Flask.
 
 ## Instructions
 1. Fork and clone the repository
-2. Cd into the app directory and run python init_db.py to initialize database and seed data
+2. Cd into the app directory and run ```python init_db.py``` to initialize database and seed data
 4. If you need to make changes to anything in the React frontend, cd into static directory and run npm build to update the bundle.js file
 5. Cd .. and run python -m flask run to startup your application server
 6. Update the server endpoint in the Dashboard.js and sensor.py file according to what your server address is
 7. In another terminal window run python sensor.py sensor_name according to what sensor you want to use from your init_db.py file
 
-## Setup
+## Development Process
 
 ### Database
 * My SQLite tables are: users, sensors, and heartrate_readings
